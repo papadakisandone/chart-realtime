@@ -1,3 +1,8 @@
+## Info
+Generate a random number between 400-3500 and display them into the chart in 3 diffrent categories. 400-1000, 1001-2000, 2001 and above+
+
+This project is still in progress.
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
