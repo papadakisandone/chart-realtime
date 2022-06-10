@@ -1,0 +1,10 @@
+{
+  "files": {
+    "main.js": "/chart-realtime/static/js/main.0ce2ccc6.js",
+    "index.html": "/chart-realtime/index.html",
+    "main.0ce2ccc6.js.map": "/chart-realtime/static/js/main.0ce2ccc6.js.map"
+  },
+  "entrypoints": [
+    "static/js/main.0ce2ccc6.js"
+  ]
+}
