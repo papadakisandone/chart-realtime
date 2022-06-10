@@ -1,6 +1,7 @@
 {
   "name": "chart",
   "version": "0.1.0",
+  "homepage": "https://papadakisandone.github.io/chart-realtime/",
   "private": true,
   "dependencies": {
     "@reduxjs/toolkit": "^1.8.1",
