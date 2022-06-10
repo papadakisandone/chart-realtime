@@ -19,8 +19,9 @@ const ChartLiveDataReduxV3 = () => {
   const dispatch = useDispatch();
   const coTwoData = useSelector((state) => state.coTwoData);
 
-  const [lengthArray, setLengthArray] = useState(0);
+  const [lengthArray, setLengthArray] = useState(coTwoData.length);
 
+  
   const data = {
     // labels: now, // x axis
     datasets: [
@@ -63,40 +64,37 @@ const ChartLiveDataReduxV3 = () => {
   }, [dispatch, lengthArray]); // when the length of the coTwoData change, run it again
 
   // const now = Date.now();
-  const coData = coTwoData.map(value => value.coTwoValue);
-  const timeOfValue = coTwoData.map(value => value.fullDateTime);
+  const coData = coTwoData.map(value => value.y);
+  const timeOfValue = coTwoData.map(value => value.x);
 
   // get the last value of the array
   const lastTime = timeOfValue[timeOfValue.length - 1];
   const lastValue = coData[coData.length - 1]; 
 
+// console.log(lengthArray);
 
   const onRefresh = () => {
-
-    setLengthArray(coTwoData.length); // to triger the useEffect
-
-
+    // setLengthArray(coTwoData.length);
+    let lastValue = Math.floor(Math.random() * (3500-400+1)+400);
       if (lastValue <= 1000) {
         //console.log(num);
-        data.datasets[0].data.push({ x: lastTime, y: lastValue });
-        // console.log(data.datasets[0].data);
+        data.datasets[0].data.push({ x: Date.now(), y: lastValue,   });
+        //  console.log(data.datasets[0].data[0]);
       }
   
       if (lastValue > 1000 && lastValue <= 2000) {
         //console.log(num);
-        data.datasets[1].data.push({ x: lastTime, y: lastValue });
-        // console.log(data.datasets[1].data);
+        data.datasets[1].data.push({ x: Date.now(), y: lastValue, });
+        //  console.log(data.datasets[1].data[0]);
       }
   
       if (lastValue > 2000) {
         //console.log(num);
-        data.datasets[2].data.push({ x: lastTime, y: lastValue });
-        // console.log(data.datasets[2].data);
+        data.datasets[2].data.push({ x: Date.now(), y: lastValue, });
+        //  console.log(data.datasets[2].data[0]);
       }
-  
- 
-    
-    
+      
+
   }; // onRefresh
 
   const options = {
@@ -134,7 +132,7 @@ const ChartLiveDataReduxV3 = () => {
     <div>
       <h1>Live LineChart data</h1>
       <div style={{ width: "1000px", margin: "0 auto" }}>
-        <Line data={data} plugins={plugins} options={options} />
+        <Line data={data} plugins={plugins} options={options}/>
       </div>
     </div>
   );

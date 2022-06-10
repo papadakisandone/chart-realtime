@@ -1,12 +1,13 @@
 import { createSlice, configureStore } from "@reduxjs/toolkit";
 
+
 const initialState = {coTwoData:[]};
 
-const optionsDateTime = {  
-weekday: "long", year: "numeric", month: "short",  
-day: "numeric", hour: "2-digit", minute: "2-digit",
-second: "numeric"
-}; 
+// const optionsDateTime = {  
+// weekday: "long", year: "numeric", month: "short",  
+// day: "numeric", hour: "2-digit", minute: "2-digit",
+// second: "numeric"
+// }; 
 
 
 const coTwoSlice = createSlice({
@@ -18,9 +19,8 @@ const coTwoSlice = createSlice({
             state.coTwoData.push({
                 x: now,// x
                 y: Math.floor(Math.random() * (3500-400+1)+400), // y 
-                // fullDateTime: new Date().toLocaleTimeString("en-us", optionsDateTime),
-                //dayTimeLabel: new Date().toLocaleTimeString(),
             });
+            
         }, 
         
     }
