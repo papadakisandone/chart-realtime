@@ -1,6 +1,5 @@
 import { createSlice, configureStore } from "@reduxjs/toolkit";
 
-
 const initialState = {coTwoData:[]};
 
 // const optionsDateTime = {  
@@ -10,19 +9,18 @@ const initialState = {coTwoData:[]};
 // }; 
 
 
+
 const coTwoSlice = createSlice({
     name: "coTwo",
     initialState: initialState,
     reducers: {
-        generateRngNum(state) {
-            const now = Date.now();
-            state.coTwoData.push({
-                x: now,// x
-                y: Math.floor(Math.random() * (3500-400+1)+400), // y 
-            });
-            
-        }, 
-        
+        generateRngNum(state) {        
+                state.coTwoData.push({
+                    x: Date.now(),// x
+                    y:Math.floor(Math.random() * (3500 - 400 + 1) + 400), // y 
+                })
+        },
+              
     }
 });
 // this way is with slice to create store

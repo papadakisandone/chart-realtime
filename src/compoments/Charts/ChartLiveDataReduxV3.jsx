@@ -1,9 +1,9 @@
 import { coTwoActions } from "../../store/redux";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import "chart.js/auto";
-
+import "./chartLiveData.css";
 import plugins from "../Settings/plugins";
 import { Line } from "react-chartjs-2";
 import { Chart } from "chart.js";
@@ -17,12 +17,9 @@ Chart.register(ChartStreaming);
 const ChartLiveDataReduxV3 = () => {
   // this give us back dispatch functions to execute
   const dispatch = useDispatch();
-  const coTwoData = useSelector((state) => state.coTwoData);
+  const coTwoData = useSelector((state) => state.coTwoData); //data 
 
-  const [lengthArray, setLengthArray] = useState(coTwoData.length);
-
-  
-  const data = {
+  const dataRef = useRef({
     // labels: now, // x axis
     datasets: [
       {
@@ -56,45 +53,42 @@ const ChartLiveDataReduxV3 = () => {
         pointHoverRadius: 10,
       },
     ],
-  }; //data
+  }); //data
+  
 
   // call the action to genarate RNG number 400-3500
   useEffect(() => {
     dispatch(coTwoActions.generateRngNum());
-  }, [dispatch, lengthArray]); // when the length of the coTwoData change, run it again
+    
+  }, [dispatch]);
 
-  // const now = Date.now();
-  const coData = coTwoData.map(value => value.y);
-  const timeOfValue = coTwoData.map(value => value.x);
 
-  // get the last value of the array
-  const lastTime = timeOfValue[timeOfValue.length - 1];
-  const lastValue = coData[coData.length - 1]; 
+   
 
-// console.log(lengthArray);
+  const onRefresh = (chart) => {
+    dispatch(coTwoActions.generateRngNum());
 
-  const onRefresh = () => {
-    // setLengthArray(coTwoData.length);
-    let lastValue = Math.floor(Math.random() * (3500-400+1)+400);
-      if (lastValue <= 1000) {
-        //console.log(num);
-        data.datasets[0].data.push({ x: Date.now(), y: lastValue,   });
-        //  console.log(data.datasets[0].data[0]);
-      }
-  
-      if (lastValue > 1000 && lastValue <= 2000) {
-        //console.log(num);
-        data.datasets[1].data.push({ x: Date.now(), y: lastValue, });
-        //  console.log(data.datasets[1].data[0]);
-      }
-  
-      if (lastValue > 2000) {
-        //console.log(num);
-        data.datasets[2].data.push({ x: Date.now(), y: lastValue, });
-        //  console.log(data.datasets[2].data[0]);
-      }
-      
+    const lastValue = coTwoData[coTwoData.length - 1];
+    const { x, y } = lastValue; //time, value
 
+    if (lastValue.y <= 1000) {
+      console.log(lastValue.y);
+      chart.data.datasets[0].data.push({x,y});
+      // console.log(data.datasets[0].data);
+    }
+
+    if (lastValue.y > 1000 && lastValue.y <= 2000) {
+      console.log(lastValue.y);
+      chart.data.datasets[1].data.push({x,y});
+      // console.log(data.datasets[1].data);
+    }
+
+    if (lastValue.y > 2000) {
+      console.log(lastValue.y);
+      chart.data.datasets[2].data.push({x,y});
+      // console.log(data.datasets[2].data);
+    }
+    chart.update("quiet");
   }; // onRefresh
 
   const options = {
@@ -110,13 +104,10 @@ const ChartLiveDataReduxV3 = () => {
           refresh: 5000, // when to refresh data
           delay: 1000,
           pause: false,
-          time: {
-            displayFormat: "h:mm"
-          },
           onRefresh: onRefresh,
+          ttl: undefined,
+          framerate: 30
         }, //realtime
-        
-
       }, //x
       y: {
         title: {
@@ -125,14 +116,19 @@ const ChartLiveDataReduxV3 = () => {
         },
       },
     }, // scales
-    
   };
 
   return (
     <div>
-      <h1>Live LineChart data</h1>
-      <div style={{ width: "1000px", margin: "0 auto" }}>
-        <Line data={data} plugins={plugins} options={options}/>
+      <h1 className="centered">
+        Carbon Dioxide (CO<sub className="sub">2</sub>
+        <span>)</span>
+      </h1>
+      <div
+        className="container container-prop"
+        style={{ width: "1000px", margin: "0 auto" }}
+      >
+        <Line data={dataRef.current} plugins={plugins} options={options} />
       </div>
     </div>
   );
