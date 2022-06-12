@@ -1,10 +1,13 @@
 {
   "files": {
-    "main.js": "/chart-realtime/static/js/main.0ce2ccc6.js",
+    "main.css": "/chart-realtime/static/css/main.3ec79000.css",
+    "main.js": "/chart-realtime/static/js/main.2fa94dff.js",
     "index.html": "/chart-realtime/index.html",
-    "main.0ce2ccc6.js.map": "/chart-realtime/static/js/main.0ce2ccc6.js.map"
+    "main.3ec79000.css.map": "/chart-realtime/static/css/main.3ec79000.css.map",
+    "main.2fa94dff.js.map": "/chart-realtime/static/js/main.2fa94dff.js.map"
   },
   "entrypoints": [
-    "static/js/main.0ce2ccc6.js"
+    "static/css/main.3ec79000.css",
+    "static/js/main.2fa94dff.js"
   ]
 }
