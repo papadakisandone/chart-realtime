@@ -1,10 +1,13 @@
-## Live Demo (still in progress)
+## Live Demo
+
 https://papadakisandone.github.io/chart-realtime/
 
 ## Info
+
 Generate a random number between 400-3500 and display them into the chart in 3 diffrent categories. 400-1000, 1001-2000, 2001 and above+
 
-This project is still in progress.
+Buld it with React-Redux, chartjs2
+Next step will be to use API.
 
 # Getting Started with Create React App
 
